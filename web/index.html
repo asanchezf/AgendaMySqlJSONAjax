@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        
+        
+        <script type="text/javascript"   src="js/jquery-1.11.3.js"></script>
+        
+        <script>
+            
+            $(document).ready(function (){
+                
+                
+                
+                //alert("Se cargó la página");
+                
+                obtenerNombres();
+                
+            });
+            
+            function obtenerNombres(){
+                
+                $.ajax({
+                    type :"get",//Método:get o post
+                    url : "listAgenda",//el que se ponga en netbeans
+                    async : "true",//Asincrono o no 
+                    cache : "false",//Si utiliza o no la caché
+                    success : function(respuesta){//Función donde se recoje la respuesta
+                       // alert(respuesta);
+                        $.each(respuesta,function(indice,agenda){
+                           
+                            //alert(indice);
+                            //Llenamos el combo
+                            $("#agenda").append($("<option>",{value:agenda.id, text:agenda.nombre} ) );
+                            
+                            //Llenamos la tabla
+                            $("#tabla_agenda").append($("<tr>").append("<td>"+agenda.id+"</td>"+"<td>"+agenda.nombre+"</td>"+"<td>"+agenda.apellidos+"</td>"+"<td>"+agenda.direccion+"</td>"    
+                                +"<td>"+agenda.telefono+"</td>" +"<td>"+agenda.email+"</td>" +"<td>"+agenda.owner+"</td>"));
+                        });
+                        
+                    }
+                    
+                });
+                
+            }
+            
+        </script>
+        
+        
+    </head>
+    <body>
+        <div>ESTOS SON LOS NOMBRE QUE HAY EN LA AGENDA</div>
+        
+        <select name="agenda" id="agenda" >
+            <option>Elige un nombre</option>
+        </select>
+        
+        
+        <table border="1" id="tabla_agenda">
+            <thead>
+                <tr>
+                    <th>Clave</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Teléfono</th>
+                    <th>Direccion</th>
+                    <th>Email</th>
+                    <th>Propietario</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+
+        
+    </body>
+</html>
